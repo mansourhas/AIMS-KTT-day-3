@@ -31,5 +31,4 @@ respond:```Highlighting Your Decision-Making ProcessThe judges want to see why y
 
 # Hardest decision i made:
 
-- i wish i could have explored explainable simple models like AREMA (in my experiance Auto-tools are bad at captiaring the cotext of the problem), but setting the paramters right will take time ( update: very late in the challange my intution is telling me AREMA for synthatic data is easy). and will require developing complete different pipeline, so i decided to stick with the gboost familiy and do grid search and focuse on accuracy.
-
+- While gTTS was sufficient for French and English, it lacked native support for Kinyarwanda, forcing a phonetic Swahili fallback. I judged this unacceptable for an early learner context where linguistic accuracy is critical. I traded off the increased local disk space and VRAM requirements to implement Meta's facebook/mms-tts-kin via Hugging Face. This ensures culturally accurate Kinyarwanda pronunciation, which is then dynamically pitch-shifted to simulate a child's voice.
