@@ -3,18 +3,21 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
 # pip install transformers torch accelerate bitsandbytes
 
+from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline, BitsAndBytesConfig, AutoConfig
+
 class SocraticTutorLLM:
     def __init__(self, model_id="microsoft/Phi-3-mini-4k-instruct"):
-        """
-        Initializes the Quantized LLM. 
-        Using 4-bit quantization (bitsandbytes) ensures it fits in small VRAM 
-        and simulates the 'on-device' constraint of the hackathon brief.
-        """
-        print(f"Loading Quantized LLM ({model_id}). This will take a moment...")
+        print(f"Loading Quantized LLM ({model_id})...")
         
-        
-        # Load the model in 4-bit precision to save memory and increase speed
-        # Define the quantization configuration
+        # --- FIX FOR ROPE SCALING KEYERROR ---
+        config = AutoConfig.from_pretrained(model_id, trust_remote_code=True)
+        if hasattr(config, "rope_scaling") and config.rope_scaling is not None:
+            # Newer transformers expect 'type', but older configs might use 'rope_type'
+            # We ensure both are present or set to a valid value
+            if "type" not in config.rope_scaling and "rope_type" in config.rope_scaling:
+                config.rope_scaling["type"] = config.rope_scaling["rope_type"]
+        # --------------------------------------
+
         quantization_config = BitsAndBytesConfig(
             load_in_4bit=True,
             bnb_4bit_compute_dtype=torch.float16,
@@ -22,15 +25,20 @@ class SocraticTutorLLM:
             bnb_4bit_use_double_quant=True,
         )
 
-        print(f"Loading Quantized LLM ({model_id})...")
-        
         self.tokenizer = AutoTokenizer.from_pretrained(model_id)
         
         self.model = AutoModelForCausalLM.from_pretrained(
             model_id, 
+            config=config,           # Pass our modified config here
             device_map="auto", 
-            quantization_config=quantization_config, # Pass the config here instead
+            quantization_config=quantization_config,
             trust_remote_code=True
+        )
+        
+        self.pipe = pipeline(
+            "text-generation",
+            model=self.model,
+            tokenizer=self.tokenizer,
         )
         print("Socratic Tutor LLM loaded successfully!")
 
