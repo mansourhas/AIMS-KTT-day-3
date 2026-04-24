@@ -64,32 +64,39 @@ class AdaptiveTutorBKT:
         
         return self.student_mastery[skill]
 
-    def get_next_question(self, target_skill=None):
+    
+    def get_next_question(self, target_skill=None, target_age_band=None):
         """
-        Selects the next question. If mastery is low, it picks an easy question. 
-        If mastery is high, it picks a harder question.
+        Selects the next question from the Zone of Proximal Development.
+        Now supports age-band filtering!
         """
-        # If no specific skill requested, pick the one they are struggling with most
+        # 1. Pick the lowest mastered skill if one isn't explicitly requested
         if not target_skill:
             target_skill = min(self.student_mastery, key=self.student_mastery.get)
 
         mastery_level = self.student_mastery[target_skill]
         
-        # Map mastery (0.0 to 1.0) to a target difficulty (1 to 10)
-        # If mastery is 0.3, target difficulty is around 3.
+        # 2. Map mastery (0.0 to 1.0) to a target difficulty (1 to 10)
         target_difficulty = max(1, int(mastery_level * 10))
         
-        available_questions = self.questions_by_skill[target_skill]
+        available_questions = self.questions_by_skill.get(target_skill, [])
         
-        # Find questions that are close to the target difficulty (+/- 1)
+        # 3. NEW: Filter by age band to keep it age-appropriate
+        if target_age_band:
+            available_questions = [
+                q for q in available_questions 
+                if q['age_band'] == target_age_band
+            ]
+        
+        # 4. Find questions within +/- 1 difficulty level
         suitable_questions = [
             q for q in available_questions 
             if abs(q['difficulty'] - target_difficulty) <= 1
         ]
         
-        # Fallback if no exact match is found
+        # Fallback if the filters are too strict
         if not suitable_questions:
-            suitable_questions = available_questions
+            suitable_questions = available_questions if available_questions else self.curriculum
             
         return random.choice(suitable_questions)
 
