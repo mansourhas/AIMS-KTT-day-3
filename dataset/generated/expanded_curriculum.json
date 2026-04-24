@@ -9,9 +9,9 @@
     "stem_kin": "Pome zingahe?",
     "visual": "apples_3",
     "answer_int": 3,
-    "tts_en": "tts/en/c001.wav",
-    "tts_fr": "tts/fr/c001.wav",
-    "tts_kin": "tts/kin/c001.wav"
+    "tts_en": "synthetic_audio/C001_en.wav",
+    "tts_fr": "synthetic_audio/C001_fr.wav",
+    "tts_kin": "synthetic_audio/C001_kin.wav"
   },
   {
     "id": "C002",
@@ -22,7 +22,10 @@
     "stem_fr": "Combien de chèvres?",
     "stem_kin": "Ihene zingahe?",
     "visual": "goats_5",
-    "answer_int": 5
+    "answer_int": 5,
+    "tts_en": "synthetic_audio/C002_en.wav",
+    "tts_fr": "synthetic_audio/C002_fr.wav",
+    "tts_kin": "synthetic_audio/C002_kin.wav"
   },
   {
     "id": "N001",
@@ -33,7 +36,10 @@
     "stem_fr": "Quel nombre est plus grand: 4 ou 7?",
     "stem_kin": "Ni iyihe nimero nini: 4 cyangwa 7?",
     "visual": "compare_4_7",
-    "answer_int": 7
+    "answer_int": 7,
+    "tts_en": "synthetic_audio/N001_en.wav",
+    "tts_fr": "synthetic_audio/N001_fr.wav",
+    "tts_kin": "synthetic_audio/N001_kin.wav"
   },
   {
     "id": "A001",
@@ -44,7 +50,10 @@
     "stem_fr": "2 plus 3 égale?",
     "stem_kin": "2 + 3 ni angahe?",
     "visual": "beads_2_plus_3",
-    "answer_int": 5
+    "answer_int": 5,
+    "tts_en": "synthetic_audio/A001_en.wav",
+    "tts_fr": "synthetic_audio/A001_fr.wav",
+    "tts_kin": "synthetic_audio/A001_kin.wav"
   },
   {
     "id": "A002",
@@ -53,7 +62,10 @@
     "age_band": "7-8",
     "stem_en": "Sara has 4 mangoes and gets 5 more. How many now?",
     "answer_int": 9,
-    "visual": "mangoes_4_plus_5"
+    "visual": "mangoes_4_plus_5",
+    "tts_en": "synthetic_audio/A002_en.wav",
+    "tts_fr": "synthetic_audio/A002_fr.wav",
+    "tts_kin": "synthetic_audio/A002_kin.wav"
   },
   {
     "id": "S001",
@@ -62,7 +74,10 @@
     "age_band": "7-8",
     "stem_en": "8 minus 3 equals?",
     "answer_int": 5,
-    "visual": "drums_8_minus_3"
+    "visual": "drums_8_minus_3",
+    "tts_en": "synthetic_audio/S001_en.wav",
+    "tts_fr": "synthetic_audio/S001_fr.wav",
+    "tts_kin": "synthetic_audio/S001_kin.wav"
   },
   {
     "id": "S002",
@@ -71,7 +86,10 @@
     "age_band": "8-9",
     "stem_en": "If a basket has 12 beans and you eat 7, how many remain?",
     "answer_int": 5,
-    "visual": "beans_basket_12"
+    "visual": "beans_basket_12",
+    "tts_en": "synthetic_audio/S002_en.wav",
+    "tts_fr": "synthetic_audio/S002_fr.wav",
+    "tts_kin": "synthetic_audio/S002_kin.wav"
   },
   {
     "id": "W001",
@@ -80,7 +98,10 @@
     "age_band": "8-9",
     "stem_en": "Three children share 9 cookies equally. How many does each get?",
     "answer_int": 3,
-    "visual": "kids_3_cookies_9"
+    "visual": "kids_3_cookies_9",
+    "tts_en": "synthetic_audio/W001_en.wav",
+    "tts_fr": "synthetic_audio/W001_fr.wav",
+    "tts_kin": "synthetic_audio/W001_kin.wav"
   },
   {
     "id": "W002",
@@ -89,7 +110,10 @@
     "age_band": "8-9",
     "stem_en": "A tomato costs 100 RWF. Mama has 850 RWF. How many tomatoes can she buy?",
     "answer_int": 8,
-    "visual": "rwf_850_tomato_100"
+    "visual": "rwf_850_tomato_100",
+    "tts_en": "synthetic_audio/W002_en.wav",
+    "tts_fr": "synthetic_audio/W002_fr.wav",
+    "tts_kin": "synthetic_audio/W002_kin.wav"
   },
   {
     "id": "N002",
@@ -97,7 +121,10 @@
     "difficulty": 7,
     "age_band": "8-9",
     "stem_en": "What number comes between 47 and 49?",
-    "answer_int": 48
+    "answer_int": 48,
+    "tts_en": "synthetic_audio/N002_en.wav",
+    "tts_fr": "synthetic_audio/N002_fr.wav",
+    "tts_kin": "synthetic_audio/N002_kin.wav"
   },
   {
     "id": "A003",
@@ -105,7 +132,10 @@
     "difficulty": 8,
     "age_band": "8-9",
     "stem_en": "27 + 14 equals?",
-    "answer_int": 41
+    "answer_int": 41,
+    "tts_en": "synthetic_audio/A003_en.wav",
+    "tts_fr": "synthetic_audio/A003_fr.wav",
+    "tts_kin": "synthetic_audio/A003_kin.wav"
   },
   {
     "id": "S003",
@@ -113,7 +143,10 @@
     "difficulty": 9,
     "age_band": "8-9",
     "stem_en": "62 - 28 equals?",
-    "answer_int": 34
+    "answer_int": 34,
+    "tts_en": "synthetic_audio/S003_en.wav",
+    "tts_fr": "synthetic_audio/S003_fr.wav",
+    "tts_kin": "synthetic_audio/S003_kin.wav"
   },
   {
     "id": "GEN_A000",
@@ -124,7 +157,10 @@
     "stem_fr": "Combien font 34 pierres plus 57 pierres?",
     "stem_kin": "34 amabuye guteranya 57 amabuye ni kangahe?",
     "visual": "stones_34_plus_57",
-    "answer_int": 91
+    "answer_int": 91,
+    "tts_en": "synthetic_audio/GEN_A000_en.wav",
+    "tts_fr": "synthetic_audio/GEN_A000_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_A000_kin.wav"
   },
   {
     "id": "GEN_C001",
@@ -135,7 +171,10 @@
     "stem_fr": "Combien de haricots y a-t-il?",
     "stem_kin": "Hari ibishyimbo zingahe?",
     "visual": "beans_1",
-    "answer_int": 1
+    "answer_int": 1,
+    "tts_en": "synthetic_audio/GEN_C001_en.wav",
+    "tts_fr": "synthetic_audio/GEN_C001_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_C001_kin.wav"
   },
   {
     "id": "GEN_A002",
@@ -146,7 +185,10 @@
     "stem_fr": "Combien font 5 mangues plus 5 mangues?",
     "stem_kin": "5 imyembe guteranya 5 imyembe ni kangahe?",
     "visual": "mangoes_5_plus_5",
-    "answer_int": 10
+    "answer_int": 10,
+    "tts_en": "synthetic_audio/GEN_A002_en.wav",
+    "tts_fr": "synthetic_audio/GEN_A002_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_A002_kin.wav"
   },
   {
     "id": "GEN_C003",
@@ -157,7 +199,10 @@
     "stem_fr": "Combien de chèvres y a-t-il?",
     "stem_kin": "Hari ihene zingahe?",
     "visual": "goats_78",
-    "answer_int": 78
+    "answer_int": 78,
+    "tts_en": "synthetic_audio/GEN_C003_en.wav",
+    "tts_fr": "synthetic_audio/GEN_C003_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_C003_kin.wav"
   },
   {
     "id": "GEN_W004",
@@ -168,7 +213,10 @@
     "stem_fr": "Sara a 25 mangues. Ils en trouvent 18 de plus. Combien en ont-ils maintenant?",
     "stem_kin": "Keza afite imyembe 25. Abonye izindi 18. Afite zingahe zose?",
     "visual": "mangoes_word_add_25_18",
-    "answer_int": 43
+    "answer_int": 43,
+    "tts_en": "synthetic_audio/GEN_W004_en.wav",
+    "tts_fr": "synthetic_audio/GEN_W004_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_W004_kin.wav"
   },
   {
     "id": "GEN_A005",
@@ -179,7 +227,10 @@
     "stem_fr": "Combien font 10 pommes plus 11 pommes?",
     "stem_kin": "10 pome guteranya 11 pome ni kangahe?",
     "visual": "apples_10_plus_11",
-    "answer_int": 21
+    "answer_int": 21,
+    "tts_en": "synthetic_audio/GEN_A005_en.wav",
+    "tts_fr": "synthetic_audio/GEN_A005_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_A005_kin.wav"
   },
   {
     "id": "GEN_S006",
@@ -190,7 +241,10 @@
     "stem_fr": "Combien font 21 mangues moins 15 mangues?",
     "stem_kin": "21 imyembe gukuramo 15 imyembe ni kangahe?",
     "visual": "mangoes_21_minus_15",
-    "answer_int": 6
+    "answer_int": 6,
+    "tts_en": "synthetic_audio/GEN_S006_en.wav",
+    "tts_fr": "synthetic_audio/GEN_S006_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_S006_kin.wav"
   },
   {
     "id": "GEN_S007",
@@ -201,7 +255,10 @@
     "stem_fr": "Combien font 7 chèvres moins 4 chèvres?",
     "stem_kin": "7 ihene gukuramo 4 ihene ni kangahe?",
     "visual": "goats_7_minus_4",
-    "answer_int": 3
+    "answer_int": 3,
+    "tts_en": "synthetic_audio/GEN_S007_en.wav",
+    "tts_fr": "synthetic_audio/GEN_S007_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_S007_kin.wav"
   },
   {
     "id": "GEN_W008",
@@ -212,7 +269,10 @@
     "stem_fr": "Marie a 1 pierres. Ils en trouvent 24 de plus. Combien en ont-ils maintenant?",
     "stem_kin": "Uwase afite amabuye 1. Abonye izindi 24. Afite zingahe zose?",
     "visual": "stones_word_add_1_24",
-    "answer_int": 25
+    "answer_int": 25,
+    "tts_en": "synthetic_audio/GEN_W008_en.wav",
+    "tts_fr": "synthetic_audio/GEN_W008_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_W008_kin.wav"
   },
   {
     "id": "GEN_C009",
@@ -223,7 +283,10 @@
     "stem_fr": "Combien de pierres y a-t-il?",
     "stem_kin": "Hari amabuye zingahe?",
     "visual": "stones_29",
-    "answer_int": 29
+    "answer_int": 29,
+    "tts_en": "synthetic_audio/GEN_C009_en.wav",
+    "tts_fr": "synthetic_audio/GEN_C009_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_C009_kin.wav"
   },
   {
     "id": "GEN_C010",
@@ -234,7 +297,10 @@
     "stem_fr": "Combien de chèvres y a-t-il?",
     "stem_kin": "Hari ihene zingahe?",
     "visual": "goats_4",
-    "answer_int": 4
+    "answer_int": 4,
+    "tts_en": "synthetic_audio/GEN_C010_en.wav",
+    "tts_fr": "synthetic_audio/GEN_C010_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_C010_kin.wav"
   },
   {
     "id": "GEN_S011",
@@ -245,7 +311,10 @@
     "stem_fr": "Combien font 85 vaches moins 60 vaches?",
     "stem_kin": "85 inka gukuramo 60 inka ni kangahe?",
     "visual": "cows_85_minus_60",
-    "answer_int": 25
+    "answer_int": 25,
+    "tts_en": "synthetic_audio/GEN_S011_en.wav",
+    "tts_fr": "synthetic_audio/GEN_S011_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_S011_kin.wav"
   },
   {
     "id": "GEN_S012",
@@ -256,7 +325,10 @@
     "stem_fr": "Combien font 5 haricots moins 1 haricots?",
     "stem_kin": "5 ibishyimbo gukuramo 1 ibishyimbo ni kangahe?",
     "visual": "beans_5_minus_1",
-    "answer_int": 4
+    "answer_int": 4,
+    "tts_en": "synthetic_audio/GEN_S012_en.wav",
+    "tts_fr": "synthetic_audio/GEN_S012_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_S012_kin.wav"
   },
   {
     "id": "GEN_C013",
@@ -267,7 +339,10 @@
     "stem_fr": "Combien de mangues y a-t-il?",
     "stem_kin": "Hari imyembe zingahe?",
     "visual": "mangoes_9",
-    "answer_int": 9
+    "answer_int": 9,
+    "tts_en": "synthetic_audio/GEN_C013_en.wav",
+    "tts_fr": "synthetic_audio/GEN_C013_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_C013_kin.wav"
   },
   {
     "id": "GEN_C014",
@@ -278,7 +353,10 @@
     "stem_fr": "Combien de pommes y a-t-il?",
     "stem_kin": "Hari pome zingahe?",
     "visual": "apples_4",
-    "answer_int": 4
+    "answer_int": 4,
+    "tts_en": "synthetic_audio/GEN_C014_en.wav",
+    "tts_fr": "synthetic_audio/GEN_C014_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_C014_kin.wav"
   },
   {
     "id": "GEN_S015",
@@ -289,7 +367,10 @@
     "stem_fr": "Combien font 31 chèvres moins 18 chèvres?",
     "stem_kin": "31 ihene gukuramo 18 ihene ni kangahe?",
     "visual": "goats_31_minus_18",
-    "answer_int": 13
+    "answer_int": 13,
+    "tts_en": "synthetic_audio/GEN_S015_en.wav",
+    "tts_fr": "synthetic_audio/GEN_S015_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_S015_kin.wav"
   },
   {
     "id": "GEN_W016",
@@ -300,7 +381,10 @@
     "stem_fr": "Marie a 9 pierres. Ils en trouvent 25 de plus. Combien en ont-ils maintenant?",
     "stem_kin": "Uwase afite amabuye 9. Abonye izindi 25. Afite zingahe zose?",
     "visual": "stones_word_add_9_25",
-    "answer_int": 34
+    "answer_int": 34,
+    "tts_en": "synthetic_audio/GEN_W016_en.wav",
+    "tts_fr": "synthetic_audio/GEN_W016_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_W016_kin.wav"
   },
   {
     "id": "GEN_A017",
@@ -311,7 +395,10 @@
     "stem_fr": "Combien font 2 vaches plus 7 vaches?",
     "stem_kin": "2 inka guteranya 7 inka ni kangahe?",
     "visual": "cows_2_plus_7",
-    "answer_int": 9
+    "answer_int": 9,
+    "tts_en": "synthetic_audio/GEN_A017_en.wav",
+    "tts_fr": "synthetic_audio/GEN_A017_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_A017_kin.wav"
   },
   {
     "id": "GEN_A018",
@@ -322,7 +409,10 @@
     "stem_fr": "Combien font 13 mangues plus 29 mangues?",
     "stem_kin": "13 imyembe guteranya 29 imyembe ni kangahe?",
     "visual": "mangoes_13_plus_29",
-    "answer_int": 42
+    "answer_int": 42,
+    "tts_en": "synthetic_audio/GEN_A018_en.wav",
+    "tts_fr": "synthetic_audio/GEN_A018_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_A018_kin.wav"
   },
   {
     "id": "GEN_C019",
@@ -333,7 +423,10 @@
     "stem_fr": "Combien de mangues y a-t-il?",
     "stem_kin": "Hari imyembe zingahe?",
     "visual": "mangoes_17",
-    "answer_int": 17
+    "answer_int": 17,
+    "tts_en": "synthetic_audio/GEN_C019_en.wav",
+    "tts_fr": "synthetic_audio/GEN_C019_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_C019_kin.wav"
   },
   {
     "id": "GEN_N020",
@@ -344,7 +437,10 @@
     "stem_fr": "Quel nombre est le plus grand : 3 ou 8?",
     "stem_kin": "Ni iyihe nimero nini: 3 cyangwa 8?",
     "visual": "compare_3_8",
-    "answer_int": 8
+    "answer_int": 8,
+    "tts_en": "synthetic_audio/GEN_N020_en.wav",
+    "tts_fr": "synthetic_audio/GEN_N020_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_N020_kin.wav"
   },
   {
     "id": "GEN_S021",
@@ -355,7 +451,10 @@
     "stem_fr": "Combien font 2 vaches moins 1 vaches?",
     "stem_kin": "2 inka gukuramo 1 inka ni kangahe?",
     "visual": "cows_2_minus_1",
-    "answer_int": 1
+    "answer_int": 1,
+    "tts_en": "synthetic_audio/GEN_S021_en.wav",
+    "tts_fr": "synthetic_audio/GEN_S021_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_S021_kin.wav"
   },
   {
     "id": "GEN_C022",
@@ -366,7 +465,10 @@
     "stem_fr": "Combien de pierres y a-t-il?",
     "stem_kin": "Hari amabuye zingahe?",
     "visual": "stones_14",
-    "answer_int": 14
+    "answer_int": 14,
+    "tts_en": "synthetic_audio/GEN_C022_en.wav",
+    "tts_fr": "synthetic_audio/GEN_C022_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_C022_kin.wav"
   },
   {
     "id": "GEN_C023",
@@ -377,7 +479,10 @@
     "stem_fr": "Combien de vaches y a-t-il?",
     "stem_kin": "Hari inka zingahe?",
     "visual": "cows_20",
-    "answer_int": 20
+    "answer_int": 20,
+    "tts_en": "synthetic_audio/GEN_C023_en.wav",
+    "tts_fr": "synthetic_audio/GEN_C023_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_C023_kin.wav"
   },
   {
     "id": "GEN_A024",
@@ -388,7 +493,10 @@
     "stem_fr": "Combien font 13 vaches plus 38 vaches?",
     "stem_kin": "13 inka guteranya 38 inka ni kangahe?",
     "visual": "cows_13_plus_38",
-    "answer_int": 51
+    "answer_int": 51,
+    "tts_en": "synthetic_audio/GEN_A024_en.wav",
+    "tts_fr": "synthetic_audio/GEN_A024_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_A024_kin.wav"
   },
   {
     "id": "GEN_C025",
@@ -399,7 +507,10 @@
     "stem_fr": "Combien de haricots y a-t-il?",
     "stem_kin": "Hari ibishyimbo zingahe?",
     "visual": "beans_8",
-    "answer_int": 8
+    "answer_int": 8,
+    "tts_en": "synthetic_audio/GEN_C025_en.wav",
+    "tts_fr": "synthetic_audio/GEN_C025_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_C025_kin.wav"
   },
   {
     "id": "GEN_W026",
@@ -410,7 +521,10 @@
     "stem_fr": "Marie a 1 chèvres. Ils en trouvent 11 de plus. Combien en ont-ils maintenant?",
     "stem_kin": "Uwase afite ihene 1. Abonye izindi 11. Afite zingahe zose?",
     "visual": "goats_word_add_1_11",
-    "answer_int": 12
+    "answer_int": 12,
+    "tts_en": "synthetic_audio/GEN_W026_en.wav",
+    "tts_fr": "synthetic_audio/GEN_W026_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_W026_kin.wav"
   },
   {
     "id": "GEN_W027",
@@ -421,7 +535,10 @@
     "stem_fr": "Marie a 4 pierres. Ils en trouvent 2 de plus. Combien en ont-ils maintenant?",
     "stem_kin": "Uwase afite amabuye 4. Abonye izindi 2. Afite zingahe zose?",
     "visual": "stones_word_add_4_2",
-    "answer_int": 6
+    "answer_int": 6,
+    "tts_en": "synthetic_audio/GEN_W027_en.wav",
+    "tts_fr": "synthetic_audio/GEN_W027_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_W027_kin.wav"
   },
   {
     "id": "GEN_N028",
@@ -432,7 +549,10 @@
     "stem_fr": "Quel nombre est le plus grand : 7 ou 4?",
     "stem_kin": "Ni iyihe nimero nini: 7 cyangwa 4?",
     "visual": "compare_7_4",
-    "answer_int": 7
+    "answer_int": 7,
+    "tts_en": "synthetic_audio/GEN_N028_en.wav",
+    "tts_fr": "synthetic_audio/GEN_N028_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_N028_kin.wav"
   },
   {
     "id": "GEN_S029",
@@ -443,7 +563,10 @@
     "stem_fr": "Combien font 8 chèvres moins 6 chèvres?",
     "stem_kin": "8 ihene gukuramo 6 ihene ni kangahe?",
     "visual": "goats_8_minus_6",
-    "answer_int": 2
+    "answer_int": 2,
+    "tts_en": "synthetic_audio/GEN_S029_en.wav",
+    "tts_fr": "synthetic_audio/GEN_S029_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_S029_kin.wav"
   },
   {
     "id": "GEN_S030",
@@ -454,7 +577,10 @@
     "stem_fr": "Combien font 26 vaches moins 20 vaches?",
     "stem_kin": "26 inka gukuramo 20 inka ni kangahe?",
     "visual": "cows_26_minus_20",
-    "answer_int": 6
+    "answer_int": 6,
+    "tts_en": "synthetic_audio/GEN_S030_en.wav",
+    "tts_fr": "synthetic_audio/GEN_S030_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_S030_kin.wav"
   },
   {
     "id": "GEN_W031",
@@ -465,7 +591,10 @@
     "stem_fr": "Sara a 4 chèvres. Ils en trouvent 3 de plus. Combien en ont-ils maintenant?",
     "stem_kin": "Keza afite ihene 4. Abonye izindi 3. Afite zingahe zose?",
     "visual": "goats_word_add_4_3",
-    "answer_int": 7
+    "answer_int": 7,
+    "tts_en": "synthetic_audio/GEN_W031_en.wav",
+    "tts_fr": "synthetic_audio/GEN_W031_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_W031_kin.wav"
   },
   {
     "id": "GEN_A032",
@@ -476,7 +605,10 @@
     "stem_fr": "Combien font 5 pierres plus 7 pierres?",
     "stem_kin": "5 amabuye guteranya 7 amabuye ni kangahe?",
     "visual": "stones_5_plus_7",
-    "answer_int": 12
+    "answer_int": 12,
+    "tts_en": "synthetic_audio/GEN_A032_en.wav",
+    "tts_fr": "synthetic_audio/GEN_A032_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_A032_kin.wav"
   },
   {
     "id": "GEN_C033",
@@ -487,7 +619,10 @@
     "stem_fr": "Combien de pommes y a-t-il?",
     "stem_kin": "Hari pome zingahe?",
     "visual": "apples_61",
-    "answer_int": 61
+    "answer_int": 61,
+    "tts_en": "synthetic_audio/GEN_C033_en.wav",
+    "tts_fr": "synthetic_audio/GEN_C033_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_C033_kin.wav"
   },
   {
     "id": "GEN_N034",
@@ -498,7 +633,10 @@
     "stem_fr": "Quel nombre est le plus grand : 2 ou 8?",
     "stem_kin": "Ni iyihe nimero nini: 2 cyangwa 8?",
     "visual": "compare_2_8",
-    "answer_int": 8
+    "answer_int": 8,
+    "tts_en": "synthetic_audio/GEN_N034_en.wav",
+    "tts_fr": "synthetic_audio/GEN_N034_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_N034_kin.wav"
   },
   {
     "id": "GEN_N035",
@@ -509,7 +647,10 @@
     "stem_fr": "Quel nombre est le plus grand : 37 ou 8?",
     "stem_kin": "Ni iyihe nimero nini: 37 cyangwa 8?",
     "visual": "compare_37_8",
-    "answer_int": 37
+    "answer_int": 37,
+    "tts_en": "synthetic_audio/GEN_N035_en.wav",
+    "tts_fr": "synthetic_audio/GEN_N035_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_N035_kin.wav"
   },
   {
     "id": "GEN_A036",
@@ -520,7 +661,10 @@
     "stem_fr": "Combien font 2 pommes plus 1 pommes?",
     "stem_kin": "2 pome guteranya 1 pome ni kangahe?",
     "visual": "apples_2_plus_1",
-    "answer_int": 3
+    "answer_int": 3,
+    "tts_en": "synthetic_audio/GEN_A036_en.wav",
+    "tts_fr": "synthetic_audio/GEN_A036_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_A036_kin.wav"
   },
   {
     "id": "GEN_N037",
@@ -531,7 +675,10 @@
     "stem_fr": "Quel nombre est le plus grand : 11 ou 12?",
     "stem_kin": "Ni iyihe nimero nini: 11 cyangwa 12?",
     "visual": "compare_11_12",
-    "answer_int": 12
+    "answer_int": 12,
+    "tts_en": "synthetic_audio/GEN_N037_en.wav",
+    "tts_fr": "synthetic_audio/GEN_N037_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_N037_kin.wav"
   },
   {
     "id": "GEN_N038",
@@ -542,7 +689,10 @@
     "stem_fr": "Quel nombre est le plus grand : 12 ou 2?",
     "stem_kin": "Ni iyihe nimero nini: 12 cyangwa 2?",
     "visual": "compare_12_2",
-    "answer_int": 12
+    "answer_int": 12,
+    "tts_en": "synthetic_audio/GEN_N038_en.wav",
+    "tts_fr": "synthetic_audio/GEN_N038_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_N038_kin.wav"
   },
   {
     "id": "GEN_C039",
@@ -553,7 +703,10 @@
     "stem_fr": "Combien de chèvres y a-t-il?",
     "stem_kin": "Hari ihene zingahe?",
     "visual": "goats_16",
-    "answer_int": 16
+    "answer_int": 16,
+    "tts_en": "synthetic_audio/GEN_C039_en.wav",
+    "tts_fr": "synthetic_audio/GEN_C039_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_C039_kin.wav"
   },
   {
     "id": "GEN_A040",
@@ -564,7 +717,10 @@
     "stem_fr": "Combien font 39 haricots plus 31 haricots?",
     "stem_kin": "39 ibishyimbo guteranya 31 ibishyimbo ni kangahe?",
     "visual": "beans_39_plus_31",
-    "answer_int": 70
+    "answer_int": 70,
+    "tts_en": "synthetic_audio/GEN_A040_en.wav",
+    "tts_fr": "synthetic_audio/GEN_A040_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_A040_kin.wav"
   },
   {
     "id": "GEN_S041",
@@ -575,7 +731,10 @@
     "stem_fr": "Combien font 50 haricots moins 39 haricots?",
     "stem_kin": "50 ibishyimbo gukuramo 39 ibishyimbo ni kangahe?",
     "visual": "beans_50_minus_39",
-    "answer_int": 11
+    "answer_int": 11,
+    "tts_en": "synthetic_audio/GEN_S041_en.wav",
+    "tts_fr": "synthetic_audio/GEN_S041_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_S041_kin.wav"
   },
   {
     "id": "GEN_C042",
@@ -586,7 +745,10 @@
     "stem_fr": "Combien de mangues y a-t-il?",
     "stem_kin": "Hari imyembe zingahe?",
     "visual": "mangoes_79",
-    "answer_int": 79
+    "answer_int": 79,
+    "tts_en": "synthetic_audio/GEN_C042_en.wav",
+    "tts_fr": "synthetic_audio/GEN_C042_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_C042_kin.wav"
   },
   {
     "id": "GEN_N043",
@@ -597,7 +759,10 @@
     "stem_fr": "Quel nombre est le plus grand : 10 ou 2?",
     "stem_kin": "Ni iyihe nimero nini: 10 cyangwa 2?",
     "visual": "compare_10_2",
-    "answer_int": 10
+    "answer_int": 10,
+    "tts_en": "synthetic_audio/GEN_N043_en.wav",
+    "tts_fr": "synthetic_audio/GEN_N043_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_N043_kin.wav"
   },
   {
     "id": "GEN_S044",
@@ -608,7 +773,10 @@
     "stem_fr": "Combien font 38 mangues moins 37 mangues?",
     "stem_kin": "38 imyembe gukuramo 37 imyembe ni kangahe?",
     "visual": "mangoes_38_minus_37",
-    "answer_int": 1
+    "answer_int": 1,
+    "tts_en": "synthetic_audio/GEN_S044_en.wav",
+    "tts_fr": "synthetic_audio/GEN_S044_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_S044_kin.wav"
   },
   {
     "id": "GEN_S045",
@@ -619,7 +787,10 @@
     "stem_fr": "Combien font 63 haricots moins 59 haricots?",
     "stem_kin": "63 ibishyimbo gukuramo 59 ibishyimbo ni kangahe?",
     "visual": "beans_63_minus_59",
-    "answer_int": 4
+    "answer_int": 4,
+    "tts_en": "synthetic_audio/GEN_S045_en.wav",
+    "tts_fr": "synthetic_audio/GEN_S045_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_S045_kin.wav"
   },
   {
     "id": "GEN_S046",
@@ -630,7 +801,10 @@
     "stem_fr": "Combien font 5 pommes moins 4 pommes?",
     "stem_kin": "5 pome gukuramo 4 pome ni kangahe?",
     "visual": "apples_5_minus_4",
-    "answer_int": 1
+    "answer_int": 1,
+    "tts_en": "synthetic_audio/GEN_S046_en.wav",
+    "tts_fr": "synthetic_audio/GEN_S046_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_S046_kin.wav"
   },
   {
     "id": "GEN_W047",
@@ -641,7 +815,10 @@
     "stem_fr": "Sara a 25 vaches. Ils en trouvent 24 de plus. Combien en ont-ils maintenant?",
     "stem_kin": "Keza afite inka 25. Abonye izindi 24. Afite zingahe zose?",
     "visual": "cows_word_add_25_24",
-    "answer_int": 49
+    "answer_int": 49,
+    "tts_en": "synthetic_audio/GEN_W047_en.wav",
+    "tts_fr": "synthetic_audio/GEN_W047_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_W047_kin.wav"
   },
   {
     "id": "GEN_N048",
@@ -652,7 +829,10 @@
     "stem_fr": "Quel nombre est le plus grand : 10 ou 19?",
     "stem_kin": "Ni iyihe nimero nini: 10 cyangwa 19?",
     "visual": "compare_10_19",
-    "answer_int": 19
+    "answer_int": 19,
+    "tts_en": "synthetic_audio/GEN_N048_en.wav",
+    "tts_fr": "synthetic_audio/GEN_N048_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_N048_kin.wav"
   },
   {
     "id": "GEN_S049",
@@ -663,7 +843,10 @@
     "stem_fr": "Combien font 3 pommes moins 2 pommes?",
     "stem_kin": "3 pome gukuramo 2 pome ni kangahe?",
     "visual": "apples_3_minus_2",
-    "answer_int": 1
+    "answer_int": 1,
+    "tts_en": "synthetic_audio/GEN_S049_en.wav",
+    "tts_fr": "synthetic_audio/GEN_S049_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_S049_kin.wav"
   },
   {
     "id": "GEN_S050",
@@ -674,7 +857,10 @@
     "stem_fr": "Combien font 53 mangues moins 35 mangues?",
     "stem_kin": "53 imyembe gukuramo 35 imyembe ni kangahe?",
     "visual": "mangoes_53_minus_35",
-    "answer_int": 18
+    "answer_int": 18,
+    "tts_en": "synthetic_audio/GEN_S050_en.wav",
+    "tts_fr": "synthetic_audio/GEN_S050_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_S050_kin.wav"
   },
   {
     "id": "GEN_S051",
@@ -685,7 +871,10 @@
     "stem_fr": "Combien font 15 chèvres moins 3 chèvres?",
     "stem_kin": "15 ihene gukuramo 3 ihene ni kangahe?",
     "visual": "goats_15_minus_3",
-    "answer_int": 12
+    "answer_int": 12,
+    "tts_en": "synthetic_audio/GEN_S051_en.wav",
+    "tts_fr": "synthetic_audio/GEN_S051_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_S051_kin.wav"
   },
   {
     "id": "GEN_W052",
@@ -696,7 +885,10 @@
     "stem_fr": "Marie a 24 pierres. Ils en trouvent 11 de plus. Combien en ont-ils maintenant?",
     "stem_kin": "Uwase afite amabuye 24. Abonye izindi 11. Afite zingahe zose?",
     "visual": "stones_word_add_24_11",
-    "answer_int": 35
+    "answer_int": 35,
+    "tts_en": "synthetic_audio/GEN_W052_en.wav",
+    "tts_fr": "synthetic_audio/GEN_W052_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_W052_kin.wav"
   },
   {
     "id": "GEN_A053",
@@ -707,7 +899,10 @@
     "stem_fr": "Combien font 7 chèvres plus 2 chèvres?",
     "stem_kin": "7 ihene guteranya 2 ihene ni kangahe?",
     "visual": "goats_7_plus_2",
-    "answer_int": 9
+    "answer_int": 9,
+    "tts_en": "synthetic_audio/GEN_A053_en.wav",
+    "tts_fr": "synthetic_audio/GEN_A053_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_A053_kin.wav"
   },
   {
     "id": "GEN_W054",
@@ -718,7 +913,10 @@
     "stem_fr": "Sara a 5 haricots. Ils en trouvent 7 de plus. Combien en ont-ils maintenant?",
     "stem_kin": "Keza afite ibishyimbo 5. Abonye izindi 7. Afite zingahe zose?",
     "visual": "beans_word_add_5_7",
-    "answer_int": 12
+    "answer_int": 12,
+    "tts_en": "synthetic_audio/GEN_W054_en.wav",
+    "tts_fr": "synthetic_audio/GEN_W054_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_W054_kin.wav"
   },
   {
     "id": "GEN_A055",
@@ -729,7 +927,10 @@
     "stem_fr": "Combien font 4 pierres plus 5 pierres?",
     "stem_kin": "4 amabuye guteranya 5 amabuye ni kangahe?",
     "visual": "stones_4_plus_5",
-    "answer_int": 9
+    "answer_int": 9,
+    "tts_en": "synthetic_audio/GEN_A055_en.wav",
+    "tts_fr": "synthetic_audio/GEN_A055_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_A055_kin.wav"
   },
   {
     "id": "GEN_A056",
@@ -740,7 +941,10 @@
     "stem_fr": "Combien font 19 vaches plus 23 vaches?",
     "stem_kin": "19 inka guteranya 23 inka ni kangahe?",
     "visual": "cows_19_plus_23",
-    "answer_int": 42
+    "answer_int": 42,
+    "tts_en": "synthetic_audio/GEN_A056_en.wav",
+    "tts_fr": "synthetic_audio/GEN_A056_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_A056_kin.wav"
   },
   {
     "id": "GEN_W057",
@@ -751,7 +955,10 @@
     "stem_fr": "Jean a 3 haricots. Ils en trouvent 15 de plus. Combien en ont-ils maintenant?",
     "stem_kin": "Kwizera afite ibishyimbo 3. Abonye izindi 15. Afite zingahe zose?",
     "visual": "beans_word_add_3_15",
-    "answer_int": 18
+    "answer_int": 18,
+    "tts_en": "synthetic_audio/GEN_W057_en.wav",
+    "tts_fr": "synthetic_audio/GEN_W057_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_W057_kin.wav"
   },
   {
     "id": "GEN_N058",
@@ -762,7 +969,10 @@
     "stem_fr": "Quel nombre est le plus grand : 17 ou 19?",
     "stem_kin": "Ni iyihe nimero nini: 17 cyangwa 19?",
     "visual": "compare_17_19",
-    "answer_int": 19
+    "answer_int": 19,
+    "tts_en": "synthetic_audio/GEN_N058_en.wav",
+    "tts_fr": "synthetic_audio/GEN_N058_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_N058_kin.wav"
   },
   {
     "id": "GEN_S059",
@@ -773,6 +983,9 @@
     "stem_fr": "Combien font 7 pommes moins 2 pommes?",
     "stem_kin": "7 pome gukuramo 2 pome ni kangahe?",
     "visual": "apples_7_minus_2",
-    "answer_int": 5
+    "answer_int": 5,
+    "tts_en": "synthetic_audio/GEN_S059_en.wav",
+    "tts_fr": "synthetic_audio/GEN_S059_fr.wav",
+    "tts_kin": "synthetic_audio/GEN_S059_kin.wav"
   }
 ]
