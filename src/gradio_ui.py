@@ -4,14 +4,14 @@ import sqlite3
 from datetime import datetime
 
 # --- IMPORT YOUR ENGINES ---
-USE_MOCK = True # Set to False for the real demo
+USE_MOCK = False # Set to False for the real demo
 
 from bkt_engine import AdaptiveTutorBKT
 
 if USE_MOCK:
-    from mock_socratic_tutor import SocraticTutorLLM
-else:
     from socratic_tutor import SocraticTutorLLM
+else:
+    from mock_socratic_tutor import SocraticTutorLLM
     from asr_pipeline import ChildSpeechRecognizer
 
 # --- NEW: DATABASE SETUP ---
@@ -67,6 +67,10 @@ if not USE_MOCK:
 
 def normalize_answer(text):
     text = str(text).lower().strip()
+    
+    # --- NEW: Remove punctuation added by the speech recognizer ---
+    text = text.replace(".", "").replace(",", "").replace("!", "").replace("?", "")
+    # --------------------------------------------------------------
     num_map = {
         "one": "1", "two": "2", "three": "3", "four": "4", "five": "5",
         "six": "6", "seven": "7", "eight": "8", "nine": "9", "ten": "10",
