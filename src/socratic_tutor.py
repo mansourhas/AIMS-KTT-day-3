@@ -1,5 +1,5 @@
 import torch
-from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
+from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig, pipeline
 
 # pip install transformers torch accelerate bitsandbytes
 
@@ -12,20 +12,25 @@ class SocraticTutorLLM:
         """
         print(f"Loading Quantized LLM ({model_id}). This will take a moment...")
         
-        self.tokenizer = AutoTokenizer.from_pretrained(model_id)
         
         # Load the model in 4-bit precision to save memory and increase speed
+        # Define the quantization configuration
+        quantization_config = BitsAndBytesConfig(
+            load_in_4bit=True,
+            bnb_4bit_compute_dtype=torch.float16,
+            bnb_4bit_quant_type="nf4",
+            bnb_4bit_use_double_quant=True,
+        )
+
+        print(f"Loading Quantized LLM ({model_id})...")
+        
+        self.tokenizer = AutoTokenizer.from_pretrained(model_id)
+        
         self.model = AutoModelForCausalLM.from_pretrained(
             model_id, 
             device_map="auto", 
-            torch_dtype=torch.float16,
-            load_in_4bit=True  # Requires bitsandbytes
-        )
-        
-        self.pipe = pipeline(
-            "text-generation",
-            model=self.model,
-            tokenizer=self.tokenizer,
+            quantization_config=quantization_config, # Pass the config here instead
+            trust_remote_code=True
         )
         print("Socratic Tutor LLM loaded successfully!")
 
