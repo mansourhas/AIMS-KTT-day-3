@@ -3,30 +3,13 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
 # pip install transformers torch accelerate bitsandbytes
 
-from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline, BitsAndBytesConfig, AutoConfig
-
-from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline, BitsAndBytesConfig, AutoConfig
 
 class SocraticTutorLLM:
     def __init__(self, model_id="microsoft/Phi-3-mini-4k-instruct"):
         print(f"Loading Quantized LLM ({model_id})...")
         
-        # --- ROBUST FIX FOR PHI-3 CONFIG BUGS ---
-        config = AutoConfig.from_pretrained(model_id, trust_remote_code=True)
-        
-        # 1. Handle the 'type' vs 'rope_type' issue
-        # 2. Handle the 'default' value which causes ValueError
-        if hasattr(config, "rope_scaling") and config.rope_scaling is not None:
-            scaling_type = config.rope_scaling.get("type", config.rope_scaling.get("rope_type"))
-            
-            if scaling_type is None or scaling_type == "default":
-                # If it's default or missing, setting to None bypasses the error
-                config.rope_scaling = None
-            else:
-                # Ensure the key is 'type' for modern transformers
-                config.rope_scaling = {"type": scaling_type}
-        # ------------------------------------------
-
+        # We no longer need to manually patch the config if we use native code
+        # but we'll keep the BitsAndBytes configuration for 4-bit support.
         quantization_config = BitsAndBytesConfig(
             load_in_4bit=True,
             bnb_4bit_compute_dtype=torch.float16,
@@ -36,12 +19,13 @@ class SocraticTutorLLM:
 
         self.tokenizer = AutoTokenizer.from_pretrained(model_id)
         
+        # IMPORTANT: Set trust_remote_code=False to use the native Transformers implementation
+        # which is compatible with your current version of DynamicCache.
         self.model = AutoModelForCausalLM.from_pretrained(
             model_id, 
-            config=config,           
             device_map="auto", 
             quantization_config=quantization_config,
-            trust_remote_code=True
+            trust_remote_code=False 
         )
         
         self.pipe = pipeline(
@@ -52,51 +36,33 @@ class SocraticTutorLLM:
         print("Socratic Tutor LLM loaded successfully!")
 
     def generate_feedback(self, question_text, expected_answer, child_transcript, is_correct):
-        """
-        Generates Socratic, low-literacy feedback based on the child's attempt.
-        """
-        # The System Prompt is the secret sauce. 
-        # It forces the LLM to behave like a primary school teacher and NEVER just give the answer.
         system_prompt = (
             "You are a warm, patient, and encouraging math tutor for a 6-year-old child. "
-            "Your goal is to help them learn using the Socratic method. \n"
-            "RULES:\n"
-            "1. Keep it extremely short (1 to 2 simple sentences). The child has low literacy.\n"
-            "2. Use simple, everyday words.\n"
-            "3. If the child is wrong, NEVER tell them the direct answer. Ask a gentle guiding question.\n"
-            "4. If the child is right, praise them enthusiastically.\n"
-            "5. Do NOT use complex math jargon."
+            "Help them learn using the Socratic method. Keep it to 1-2 simple sentences."
         )
 
         if is_correct:
-            user_prompt = f"The question was: '{question_text}'. The expected answer was {expected_answer}. The child said '{child_transcript}', which is CORRECT. Give them a short, happy compliment."
+            user_prompt = f"The child got it right! They said '{child_transcript}' for '{question_text}'. Praise them!"
         else:
-            user_prompt = f"The question was: '{question_text}'. The expected answer was {expected_answer}. The child said '{child_transcript}', which is WRONG. Give them a gentle, helpful hint or ask a simpler guiding question to help them figure it out. Do not give the answer {expected_answer}."
+            user_prompt = f"The child said '{child_transcript}' for '{question_text}'. The answer is {expected_answer}. Give a tiny hint without telling the answer."
 
-        # Format for instruction-tuned models (Phi-3 / Llama-3 format)
         messages = [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt},
         ]
         
-        prompt = self.tokenizer.apply_chat_template(
-            messages, 
-            tokenize=False, 
-            add_generation_prompt=True
-        )
+        prompt = self.tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
 
-        # Generate the response
+        # FIXED: Removed pad_token_id and adjusted parameters to avoid deprecation warnings
         outputs = self.pipe(
             prompt,
-            max_new_tokens=50, # Keep it very short so TTS doesn't take forever to speak it
-            temperature=0.3,   # Low temp = more predictable, less hallucination
+            max_new_tokens=50,
+            temperature=0.7,
             do_sample=True,
-            pad_token_id=self.tokenizer.eos_token_id
+            return_full_text=False
         )
         
-        # Extract just the generated text
-        generated_text = outputs[0]["generated_text"][len(prompt):].strip()
-        return generated_text
+        return outputs[0]["generated_text"].strip()
 
 # ==========================================
 # BATCH TESTING LOGIC
