@@ -2,8 +2,8 @@ import pandas as pd
 import numpy as np
 import os
 
-PROBES_FILE = '../dataset/seeds/diagnostic_probes_seed.csv'
-OUTPUT_FILE = '../dataset/generated/kt_interaction_logs.csv'
+PROBES_FILE = './dataset/seeds/diagnostic_probes_seed.csv'
+OUTPUT_FILE = './dataset/generated/kt_interaction_logs.csv'
 
 def simulate_student_interactions(probes_df, num_students=100, interactions_per_student=50):
     logs = []
