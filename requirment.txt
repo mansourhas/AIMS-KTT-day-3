@@ -1,1 +1,15 @@
-lightgbm
+pandas
+numpy
+pillow
+gradio
+transformers
+torch
+accelerate
+bitsandbytes
+gtts
+librosa
+soundfile
+scipy
+scikit-learn
+matplotlib
+reportlab
