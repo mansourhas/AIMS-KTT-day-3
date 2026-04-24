@@ -1,2 +1,2 @@
-dataset/generated/visuals/*.png
-dataset/generated/synthetic_audio/*.wav
+# dataset/generated/visuals/*.png
+# dataset/generated/synthetic_audio/*.wav
