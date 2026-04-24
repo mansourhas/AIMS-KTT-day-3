@@ -4,7 +4,15 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 # pip install transformers torch accelerate bitsandbytes
 
 
+# In your SocraticTutorLLM or ChildSpeechRecognizer classes
+# Add a check to only load if not already loaded
 class SocraticTutorLLM:
+    _instance = None
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super(SocraticTutorLLM, cls).__new__(cls)
+            # Put your loading logic here
+        return cls._instance
     def __init__(self, model_id="microsoft/Phi-3-mini-4k-instruct"):
         print(f"Loading Quantized LLM ({model_id})...")
         
