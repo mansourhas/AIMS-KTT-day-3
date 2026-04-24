@@ -1,5 +1,7 @@
 import gradio as gr
 import os
+import sqlite3
+from datetime import datetime
 
 # --- IMPORT YOUR ENGINES ---
 USE_MOCK = True # Set to False for the real demo
@@ -11,6 +13,45 @@ if USE_MOCK:
 else:
     from socratic_tutor import SocraticTutorLLM
     from asr_pipeline import ChildSpeechRecognizer
+
+# --- NEW: DATABASE SETUP ---
+DB_PATH = "student_behavior.db"
+
+def init_db():
+    """Initializes the SQLite database to store student behavior."""
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS behavior_log (
+            log_id INTEGER PRIMARY KEY AUTOINCREMENT,
+            timestamp TEXT,
+            student_name TEXT,
+            question_id TEXT,
+            skill TEXT,
+            difficulty INTEGER,
+            expected_answer TEXT,
+            student_answer TEXT,
+            is_correct BOOLEAN
+        )
+    ''')
+    conn.commit()
+    conn.close()
+
+def log_behavior(student_name, q_id, skill, difficulty, expected, actual, is_correct):
+    """Records a single answer attempt into the database."""
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute('''
+        INSERT INTO behavior_log 
+        (timestamp, student_name, question_id, skill, difficulty, expected_answer, student_answer, is_correct)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    ''', (datetime.now().isoformat(), student_name, q_id, skill, difficulty, expected, actual, is_correct))
+    conn.commit()
+    conn.close()
+
+# Initialize the DB on startup
+init_db()
+# ---------------------------
 
 # --- CONFIGURATION ---
 CURRICULUM_PATH = './dataset/generated/expanded_curriculum.json'
@@ -39,14 +80,20 @@ question_choices = [f"{q['id']}: {q['stem_en']} (Diff: {q['difficulty']})" for q
 
 # --- CORE LOGIC ---
 
-def start_session(age_band, lang):
+def start_session(student_name, age_band, lang):
+    # Ensure we have a name to log
+    if not student_name or not student_name.strip():
+        student_name = "Anonymous_Student"
+        
     first_q = bkt_engine.get_next_question(target_age_band=age_band)
     img_path = os.path.join(VISUALS_DIR, f"{first_q['visual']}.png")
     audio_path = os.path.join(AUDIO_DIR, f"{first_q['id']}_{lang}.wav")
     question_display = first_q.get(f"stem_{lang}", first_q['stem_en'])
 
     return (
-        first_q, img_path, f"### {question_display}", audio_path,
+        first_q, 
+        student_name.strip(), # Save name to state
+        img_path, f"### {question_display}", audio_path,
         "", 
         "*(Waiting for your answer...)*", 
         gr.update(visible=True), # Show game area
@@ -56,7 +103,7 @@ def start_session(age_band, lang):
         gr.update(interactive=False, variant="secondary") # Disable next button
     )
 
-def process_answer(audio_input, text_input, current_q, lang):
+def process_answer(audio_input, text_input, current_q, lang, student_name):
     # 1. Input Validation
     if not text_input and not audio_input:
         return (
@@ -90,12 +137,24 @@ def process_answer(audio_input, text_input, current_q, lang):
             else:
                 is_correct = asr_result["is_correct"]
 
+    # --- NEW: LOG BEHAVIOR TO DATABASE ---
+    log_behavior(
+        student_name=student_name,
+        q_id=current_q['id'],
+        skill=current_q.get('skill', 'unknown'),
+        difficulty=current_q.get('difficulty', 0),
+        expected=expected,
+        actual=child_said,
+        is_correct=is_correct
+    )
+    # -------------------------------------
+
     # 3. Transparency Debug Output
     grade_icon = "✅ PASS" if is_correct else "❌ FAIL"
     debug_text = f"**Expected:** {expected} | **Heard:** '{child_said}' | **Result:** {grade_icon}"
 
     # 4. BKT & Feedback
-    bkt_engine.update_mastery(current_q['skill'], is_correct)
+    bkt_engine.update_mastery(current_q.get('skill', 'unknown'), is_correct)
     feedback = tutor_llm.generate_feedback(current_q['stem_en'], expected, child_said, is_correct)
     
     # --- FIXED BUTTON STATE LOGIC ---
@@ -150,18 +209,21 @@ def jump_to_question(selected_q_string, lang):
 # --- UI LAYOUT ---
 with gr.Blocks(theme=gr.themes.Soft()) as demo:
     current_question = gr.State()
+    current_student_name = gr.State("") # Keeps track of the logged-in student
 
     gr.Markdown("# 🍎 My Friendly Math Tutor")
 
     with gr.Row(visible=True) as setup_row:
         with gr.Column():
+            # --- NEW: STUDENT NAME PROMPT ---
+            student_name_input = gr.Textbox(label="Student Name", placeholder="Enter your name to begin...")
             age_select = gr.Radio(["5-6", "6-7", "7-8", "8-9"], label="Child's Age Band", value="6-7")
             lang_select = gr.Radio(["en", "fr", "kin"], label="Preferred Language", value="en")
             start_btn = gr.Button("🚀 Start Learning!", variant="primary")
 
     with gr.Column(visible=False) as game_area:
         
-        # --- NEW: DEBUG DROP-DOWN ---
+        # --- DEBUG DROP-DOWN ---
         with gr.Accordion("🛠️ Presenter Debug Menu (Jump to Question)", open=False):
             with gr.Row():
                 debug_q_select = gr.Dropdown(choices=question_choices, label="Select specific question...", scale=4)
@@ -191,13 +253,13 @@ with gr.Blocks(theme=gr.themes.Soft()) as demo:
     # --- EVENTS ---
     start_btn.click(
         fn=start_session,
-        inputs=[age_select, lang_select],
-        outputs=[current_question, visual_display, question_text, question_audio, feedback_display, transcript_display, game_area, setup_row, answer_text, submit_btn, next_btn]
+        inputs=[student_name_input, age_select, lang_select],
+        outputs=[current_question, current_student_name, visual_display, question_text, question_audio, feedback_display, transcript_display, game_area, setup_row, answer_text, submit_btn, next_btn]
     )
 
     submit_btn.click(
         fn=process_answer,
-        inputs=[answer_mic, answer_text, current_question, lang_select],
+        inputs=[answer_mic, answer_text, current_question, lang_select, current_student_name],
         outputs=[feedback_display, transcript_display, submit_btn, next_btn, current_question]
     )
 
