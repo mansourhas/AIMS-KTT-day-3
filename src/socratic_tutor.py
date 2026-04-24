@@ -5,18 +5,27 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
 from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline, BitsAndBytesConfig, AutoConfig
 
+from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline, BitsAndBytesConfig, AutoConfig
+
 class SocraticTutorLLM:
     def __init__(self, model_id="microsoft/Phi-3-mini-4k-instruct"):
         print(f"Loading Quantized LLM ({model_id})...")
         
-        # --- FIX FOR ROPE SCALING KEYERROR ---
+        # --- ROBUST FIX FOR PHI-3 CONFIG BUGS ---
         config = AutoConfig.from_pretrained(model_id, trust_remote_code=True)
+        
+        # 1. Handle the 'type' vs 'rope_type' issue
+        # 2. Handle the 'default' value which causes ValueError
         if hasattr(config, "rope_scaling") and config.rope_scaling is not None:
-            # Newer transformers expect 'type', but older configs might use 'rope_type'
-            # We ensure both are present or set to a valid value
-            if "type" not in config.rope_scaling and "rope_type" in config.rope_scaling:
-                config.rope_scaling["type"] = config.rope_scaling["rope_type"]
-        # --------------------------------------
+            scaling_type = config.rope_scaling.get("type", config.rope_scaling.get("rope_type"))
+            
+            if scaling_type is None or scaling_type == "default":
+                # If it's default or missing, setting to None bypasses the error
+                config.rope_scaling = None
+            else:
+                # Ensure the key is 'type' for modern transformers
+                config.rope_scaling = {"type": scaling_type}
+        # ------------------------------------------
 
         quantization_config = BitsAndBytesConfig(
             load_in_4bit=True,
@@ -29,7 +38,7 @@ class SocraticTutorLLM:
         
         self.model = AutoModelForCausalLM.from_pretrained(
             model_id, 
-            config=config,           # Pass our modified config here
+            config=config,           
             device_map="auto", 
             quantization_config=quantization_config,
             trust_remote_code=True
