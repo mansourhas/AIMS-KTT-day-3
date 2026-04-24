@@ -51,18 +51,17 @@ The project combines:
 
 ## Setup
 
-Use Python 3.10+ (3.10/3.11 recommended).
+Use Python 3.10+ (3.13 recommended).
 
 ```bash
 python -m venv .venv
 .venv\Scripts\activate
 pip install --upgrade pip
-pip install pandas numpy pillow gradio transformers torch accelerate bitsandbytes gtts librosa soundfile scipy scikit-learn matplotlib
+pip install -r requirment.txt
 ```
 
 Notes:
-- `requirment.txt` currently contains only `lightgbm`, so install dependencies explicitly as above.
-- `bitsandbytes` is only needed for real LLM mode (`src/socratic_tutor.py`).
+- `bitsandbytes` is only needed for real LLM mode (`src/socratic_tutor.py`). and it doesn't support windows properly.
 
 ## Quick Start
 
