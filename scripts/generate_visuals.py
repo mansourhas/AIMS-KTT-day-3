@@ -12,7 +12,7 @@ EMOJI_MAP = {
     "apples": "🍎",
     "mangoes": "🥭",
     "goats": "🐐",
-    "beans": "🫘",
+    "beans": "🫛",
     "stones": "🪨",
     "cows": "🐄"
 }
