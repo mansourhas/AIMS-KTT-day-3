@@ -20,7 +20,7 @@ and also i'm adding it to Docs/tasks.md
 This shows the AI tendensy to give me full code with low quality and how i'm trying to improve the qulaiyt.
 
 This conversation contain all the discrion with ai to build the code:
-https://gemini.google.com/share/b5535c9ab0fa
+https://gemini.google.com/share/c1997b0c299d
 
 
 ## [Sample 3]
@@ -31,4 +31,5 @@ respond:```Highlighting Your Decision-Making ProcessThe judges want to see why y
 
 # Hardest decision i made:
 
-- While gTTS was sufficient for French and English, it lacked native support for Kinyarwanda, forcing a phonetic Swahili fallback. I judged this unacceptable for an early learner context where linguistic accuracy is critical. I traded off the increased local disk space and VRAM requirements to implement Meta's facebook/mms-tts-kin via Hugging Face. This ensures culturally accurate Kinyarwanda pronunciation, which is then dynamically pitch-shifted to simulate a child's voice.
+- for the Visuals
+- also, for the TTS, While gTTS was sufficient for French and English, it lacked native support for Kinyarwanda, forcing a phonetic Swahili fallback. I judged this unacceptable for an early learner context where linguistic accuracy is critical. I traded off the increased local disk space and VRAM requirements to deploy Meta's facebook/mms-tts-kin via Hugging Face. This ensures culturally accurate Kinyarwanda pronunciation, which is then dynamically pitch-shifted to simulate a child's voice. 
