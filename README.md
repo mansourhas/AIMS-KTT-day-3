@@ -156,6 +156,9 @@ python src/socratic_tutor.py
 - KT evaluation notebook: `kt_eval.ipynb`
 - Process log: `process_log.md`
 - Honor code: `SIGNED.md`
+- shows the tutor working on colab `KTT day3.ipynb`
+- genarate the report for the gardains `generate_report.py`
+- for the gernerat report sample `reports/repor.pdf`
 
 ## License / Submission Note
 
