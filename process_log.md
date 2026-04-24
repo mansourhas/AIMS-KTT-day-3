@@ -27,7 +27,7 @@ https://gemini.google.com/share/c1997b0c299d
 Ideation and verfication what have i missed about the project, and where can i improve my ratings.
 prompt (with all my code files as context):`give me exact tips for best video recording experiance, i want the judges to see my techniqual ability and how my decision making thinking is`
 
-respond:``````
+respond: https://gemini.google.com/share/2c7e7c871182
 
 # Hardest decision i made:
 

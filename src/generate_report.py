@@ -1,183 +1,172 @@
-import gradio as gr
 import os
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+from reportlab.lib import colors
 
-# --- IMPORT YOUR ENGINES ---
-USE_MOCK = True # Set to False for the real demo
+# Create output directory
+OUTPUT_DIR = './reports/'
+os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-from bkt_engine import AdaptiveTutorBKT
+def draw_trend_bars(c, x, y, history):
+    """Draws a tiny 3-bar chart to show progress over time visually."""
+    max_height = 30
+    bar_width = 8
+    spacing = 4
+    
+    # Draw a faint baseline
+    c.setStrokeColor(colors.lightgrey)
+    c.setLineWidth(1)
+    c.line(x, y, x + (bar_width + spacing) * 3, y)
 
-if USE_MOCK:
-    from mock_socratic_tutor import SocraticTutorLLM
-else:
-    from socratic_tutor import SocraticTutorLLM
-    from asr_pipeline import ChildSpeechRecognizer
-
-# --- CONFIGURATION ---
-CURRICULUM_PATH = './dataset/generated/expanded_curriculum.json'
-VISUALS_DIR = './dataset/generated/visuals/'
-AUDIO_DIR = './dataset/generated/synthetic_audio/'
-
-bkt_engine = AdaptiveTutorBKT(CURRICULUM_PATH)
-tutor_llm = SocraticTutorLLM()
-
-if not USE_MOCK:
-    print("Loading real ASR Model...")
-    recognizer = ChildSpeechRecognizer()
-
-def normalize_answer(text):
-    text = str(text).lower().strip()
-    num_map = {
-        "one": "1", "two": "2", "three": "3", "four": "4", "five": "5",
-        "six": "6", "seven": "7", "eight": "8", "nine": "9", "ten": "10",
-        "eleven": "11", "twelve": "12", "thirteen": "13", "fourteen": "14", "fifteen": "15",
-        "sixteen": "16", "seventeen": "17", "eighteen": "18", "nineteen": "19", "twenty": "20"
-    }
-    return num_map.get(text, text)
-
-# --- CORE LOGIC ---
-
-def start_session(age_band, lang):
-    first_q = bkt_engine.get_next_question(target_age_band=age_band)
-    img_path = os.path.join(VISUALS_DIR, f"{first_q['visual']}.png")
-    audio_path = os.path.join(AUDIO_DIR, f"{first_q['id']}_{lang}.wav")
-    question_display = first_q.get(f"stem_{lang}", first_q['stem_en'])
-
-    return (
-        first_q, img_path, f"### {question_display}", audio_path,
-        "", 
-        "*(Waiting for your answer...)*", 
-        gr.update(visible=True), 
-        gr.update(visible=False), 
-        gr.update(value="", interactive=True), # Clear text input
-        gr.update(value="Check my Answer", interactive=True), # Reset submit button
-        gr.update(visible=False) # Hide next button
-    )
-
-def process_answer(audio_input, text_input, current_q, lang):
-    # 1. Input Validation
-    if not text_input and not audio_input:
-        return (
-            "⚠️ Please type or record an answer!", 
-            "*(No input detected)*",
-            gr.update(interactive=True), # Keep button active
-            gr.update(visible=False),    # Keep next hidden
-            current_q
-        )
-
-    expected = str(current_q['answer_int'])
-    child_said = ""
-    is_correct = False
-
-    # 2. Extract Answer
-    if text_input:
-        child_said = text_input.strip()
-        is_correct = (normalize_answer(child_said) == expected)
-    else:
-        if USE_MOCK:
-            child_said = "five" 
-            is_correct = (normalize_answer(child_said) == expected)
+    for i, val in enumerate(history):
+        h = max(3, val * max_height) # Minimum height of 3px so 0% is still visible
+        bx = x + (bar_width + spacing) * i
+        
+        # Color the historical bars grey, and the current (last) bar blue to highlight 'now'
+        if i == len(history) - 1:
+            c.setFillColor(colors.HexColor("#2196F3")) # Blue
         else:
-            asr_result = recognizer.evaluate_audio(audio_input, expected, lang)
-            if asr_result["status"] == "error":
-                return (f"ASR Error: {asr_result['message']}", "*(Error)*", gr.update(interactive=True), gr.update(visible=False), current_q)
+            c.setFillColor(colors.lightgrey)
             
-            child_said = asr_result["transcript"]
-            if normalize_answer(child_said) == expected:
-                is_correct = True
-            else:
-                is_correct = asr_result["is_correct"]
+        c.rect(bx, y, bar_width, h, fill=1, stroke=0)
 
-    # 3. Transparency Debug Output
-    grade_icon = "✅ PASS" if is_correct else "❌ FAIL"
-    debug_text = f"**Expected:** {expected} | **Heard:** '{child_said}' | **Result:** {grade_icon}"
+def draw_visual_progress_bar(c, x, y, width, height, skill_data, icon_text):
+    """Draws a visual 'battery' bar and a trend graph."""
+    current_mastery = skill_data["current"]
+    history = skill_data["history"]
 
-    # 4. BKT & Feedback
-    bkt_engine.update_mastery(current_q['skill'], is_correct)
-    feedback = tutor_llm.generate_feedback(current_q['stem_en'], expected, child_said, is_correct)
+    # 1. Draw the Subject Text/Icon (Safely using standard characters)
+    c.setFont("Helvetica-Bold", 16)
+    c.setFillColor(colors.dimgrey)
+    c.drawString(x, y + 8, icon_text)
     
-    # --- FIXED: BRANCHING UI LOGIC ---
-    if is_correct:
-        # Child got it right: Lock submit, Show Next
-        submit_update = gr.update(value="✅ Correct!", interactive=False)
-        next_update = gr.update(visible=True)
+    # Add extra padding so the text doesn't touch the bar
+    bar_x = x + 60 
+    
+    # 2. Draw the background outline (empty battery)
+    c.setStrokeColor(colors.lightgrey)
+    c.setLineWidth(2)
+    c.rect(bar_x, y, width, height, fill=0)
+    
+    # 3. Determine Color based on Current Mastery
+    if current_mastery >= 0.8:
+        fill_color = colors.HexColor("#4CAF50") # Strong Green (Mastered)
+    elif current_mastery >= 0.4:
+        fill_color = colors.HexColor("#FFC107") # Yellow/Gold (Growing)
     else:
-        # Child got it wrong: Keep submit active, Hide Next
-        submit_update = gr.update(value="🔄 Try Again", interactive=True, variant="secondary")
-        next_update = gr.update(visible=False)
-    # ---------------------------------
+        fill_color = colors.HexColor("#FF9800") # Orange (Just started)
 
-    return (
-        feedback, 
-        debug_text,
-        submit_update, 
-        next_update, 
-        current_q
-    )
-
-def next_question(current_q, age_band, lang):
-    next_q = bkt_engine.get_next_question(target_age_band=age_band)
-    img_path = os.path.join(VISUALS_DIR, f"{next_q['visual']}.png")
-    audio_path = os.path.join(AUDIO_DIR, f"{next_q['id']}_{lang}.wav")
-    question_display = next_q.get(f"stem_{lang}", next_q['stem_en'])
+    # 4. Draw the fill block
+    fill_width = width * current_mastery
+    c.setFillColor(fill_color)
+    c.rect(bar_x, y, fill_width, height, fill=1, stroke=0)
     
-    return (
-        next_q, img_path, f"### {question_display}", audio_path,
-        "", 
-        "*(Waiting for your answer...)*", 
-        gr.update(value="Check my Answer", interactive=True, variant="primary"), # Reset submit button perfectly
-        gr.update(visible=False), 
-        gr.update(value="", interactive=True) 
-    )
+    # 5. Add a Star if Mastered! (Using ZapfDingbats 'H' which is a star)
+    if current_mastery >= 0.8:
+        c.setFont("ZapfDingbats", 16)
+        c.setFillColor(colors.goldenrod)
+        c.drawString(bar_x + width + 10, y + 8, "H") # 'H' is a solid star in ZapfDingbats
 
-# --- UI LAYOUT ---
-with gr.Blocks(theme=gr.themes.Soft()) as demo:
-    current_question = gr.State()
+    # 6. Draw the Trend Bars on the far right
+    trend_x = bar_x + width + 40
+    draw_trend_bars(c, trend_x, y, history)
 
-    gr.Markdown("# 🍎 My Friendly Math Tutor")
+def draw_smiley(c, x, y):
+    """Draws a vector smiley face so we don't rely on emojis."""
+    c.setFillColor(colors.gold)
+    c.setStrokeColor(colors.orange)
+    c.circle(x, y, 20, fill=1, stroke=1) # Face
+    
+    c.setFillColor(colors.black)
+    c.circle(x - 7, y + 5, 2.5, fill=1) # Left eye
+    c.circle(x + 7, y + 5, 2.5, fill=1) # Right eye
+    
+    # Smile arc
+    c.setStrokeColor(colors.black)
+    c.setLineWidth(2)
+    c.arc(x - 10, y - 10, x + 10, y + 5, startAng=190, extent=160)
 
-    with gr.Row(visible=True) as setup_row:
-        with gr.Column():
-            age_select = gr.Radio(["5-6", "6-7", "7-8", "8-9"], label="Child's Age Band", value="6-7")
-            lang_select = gr.Radio(["en", "fr", "kin"], label="Preferred Language", value="en")
-            start_btn = gr.Button("🚀 Start Learning!", variant="primary")
+def draw_bean(c, x, y):
+    """Draws a simple bean shape for the footer instructions."""
+    c.setFillColor(colors.saddlebrown)
+    c.ellipse(x, y, x+12, y+18, fill=1, stroke=0)
 
-    with gr.Column(visible=False) as game_area:
-        with gr.Row():
-            with gr.Column(scale=1):
-                visual_display = gr.Image(label="Look at this:", interactive=False)
-                question_audio = gr.Audio(label="Listen to the question", autoplay=True)
-            
-            with gr.Column(scale=1):
-                question_text = gr.Markdown("### Question will appear here")
-                
-                with gr.Row():
-                    answer_mic = gr.Audio(sources=["microphone"], type="filepath", label="Speak")
-                    answer_text = gr.Textbox(placeholder="...or type number", label="Type")
-                
-                submit_btn = gr.Button("Check my Answer", variant="primary")
-                
-                transcript_display = gr.Markdown("*(Waiting for your answer...)*")
-                
-                feedback_display = gr.Textbox(label="Tutor Feedback", interactive=False)
-                next_btn = gr.Button("Next Question ➡️", visible=False)
+def generate_visual_pdf(student_name, bkt_mastery_data):
+    """Generates the robust, non-literate PDF report card."""
+    file_path = os.path.join(OUTPUT_DIR, f"{student_name}_visual_report.pdf")
+    c = canvas.Canvas(file_path, pagesize=letter)
+    
+    # Header
+    c.setFont("Helvetica-Bold", 24)
+    c.setFillColor(colors.black)
+    c.drawString(50, 730, f"Student: {student_name}")
+    c.setFont("Helvetica", 14)
+    c.setFillColor(colors.gray)
+    c.drawString(50, 705, "Visual Progress Report")
 
-    # --- EVENTS ---
-    start_btn.click(
-        fn=start_session,
-        inputs=[age_select, lang_select],
-        outputs=[current_question, visual_display, question_text, question_audio, feedback_display, transcript_display, game_area, setup_row, answer_text, submit_btn, next_btn]
-    )
+    # Overall Mood (Vector Graphic)
+    avg_mastery = sum(d["current"] for d in bkt_mastery_data.values()) / len(bkt_mastery_data)
+    if avg_mastery > 0.5:
+        draw_smiley(c, 500, 730)
 
-    submit_btn.click(
-        fn=process_answer,
-        inputs=[answer_mic, answer_text, current_question, lang_select],
-        outputs=[feedback_display, transcript_display, submit_btn, next_btn, current_question]
-    )
+    # Column Headers for visual clarity
+    c.setFont("Helvetica-Oblique", 10)
+    c.setFillColor(colors.lightgrey)
+    c.drawString(110, 650, "Current Skill Level")
+    c.drawString(450, 650, "Recent Progress")
 
-    next_btn.click(
-        fn=next_question,
-        inputs=[current_question, age_select, lang_select],
-        outputs=[current_question, visual_display, question_text, question_audio, feedback_display, transcript_display, submit_btn, next_btn, answer_text]
-    )
+    # Skill Mapping
+    skill_icons = {
+        "counting": "1, 2, 3",  
+        "addition": "[ + ]",      
+        "subtraction": "[ - ]",     
+        "number_sense": "[ < > ]",  
+        "word_problem": "[ ? ]"    
+    }
 
-demo.launch()
+    # Draw the progress bars & trends
+    y_position = 600
+    for skill, data in bkt_mastery_data.items():
+        icon = skill_icons.get(skill, "•")
+        draw_visual_progress_bar(c, 50, y_position, width=280, height=25, skill_data=data, icon_text=icon)
+        y_position -= 70 # Move down for the next row
+
+    # Footer - Safe Vector Call to Actions
+    c.setFillColor(colors.black)
+    c.setFont("Helvetica-Bold", 16)
+    c.drawString(50, 150, "At home please:")
+    
+    c.setFont("Helvetica", 14)
+    # Instruction 1: Count beans
+    draw_bean(c, 50, 110)
+    c.drawString(65, 115, "+")
+    draw_bean(c, 80, 110)
+    c.drawString(105, 115, "(Count items together)")
+    
+    # Instruction 2: Praise (Using ZapfDingbats Checkmark and Star)
+    c.setFont("ZapfDingbats", 16)
+    c.setFillColor(colors.HexColor("#4CAF50"))
+    c.drawString(50, 75, "4") # Checkmark
+    c.setFillColor(colors.goldenrod)
+    c.drawString(70, 75, "H") # Star
+    c.setFont("Helvetica", 14)
+    c.setFillColor(colors.black)
+    c.drawString(95, 75, "(Praise their hard work)")
+
+    c.save()
+    print(f"✅ Visual PDF generated: {file_path}")
+
+# ==========================================
+# QUICK TEST WITH TREND DATA
+# ==========================================
+if __name__ == "__main__":
+    # Simulated data: Includes 'current' mastery, and 'history' (last 3 sessions)
+    mock_student_mastery = {
+        "counting": {"current": 0.95, "history": [0.60, 0.80, 0.95]},      # Going up!
+        "addition": {"current": 0.60, "history": [0.60, 0.55, 0.60]},      # Flat/Struggling slightly
+        "subtraction": {"current": 0.25, "history": [0.05, 0.15, 0.25]},   # Slowly learning
+        "number_sense": {"current": 0.85, "history": [0.30, 0.60, 0.85]},  # Fast learner
+        "word_problem": {"current": 0.10, "history": [0.10, 0.10, 0.10]}   # Stuck
+    }
+    
+    generate_visual_pdf("Uwase", mock_student_mastery)
